@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/theteam"
+    android:layout_height="match_parent"
+    tools:context="com.intellectualcloud.intellectualcloud.Employees">
+
+    <ScrollView
+        android:id="@+id/scrollvforteam"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbarSize="3.2dip">
+
+
+        <!-- Cloud Intellect Team workers -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+
+                android:padding="10dp"
+                android:text="The Team"
+                android:gravity="center"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold" />
+
+
+            <ListView
+                android:id="@+id/lv_forworkers"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_centerHorizontal="true"
+                android:descendantFocusability="blocksDescendants"
+                android:scrollbarSize="3.5dip"
+
+                />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

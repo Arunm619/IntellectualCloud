@@ -25,11 +25,13 @@ public class FirebaseClient {
     ArrayList<post> postslist = new ArrayList<>();
     CustomAdapter customAdapter;
     DatabaseReference db;
+    String order;
 
-    public FirebaseClient(Context c, String DB_URL, ListView listView) {
+    public FirebaseClient(Context c, String DB_URL, ListView listView, String order) {
         this.c = c;
         this.DB_URL = DB_URL;
         this.listView = listView;
+        this.order = order;
 
 
         db = FirebaseDatabase.getInstance().getReferenceFromUrl(DB_URL);
@@ -73,7 +75,9 @@ public class FirebaseClient {
 
 
         if (postslist.size() > 0) {
-            Collections.reverse(postslist);
+
+            if (order.equals("reverse"))
+                Collections.reverse(postslist);
             customAdapter = new CustomAdapter(c, postslist);
             listView.setAdapter(customAdapter);
             Utility.setDynamicHeight(listView);

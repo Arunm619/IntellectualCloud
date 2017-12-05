@@ -2,33 +2,40 @@ package com.intellectualcloud.intellectualcloud;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.appinvite.AppInvite;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
+import com.intellectualcloud.intellectualcloud.model.post;
 
 public class ReceiveLink extends AppCompatActivity {
     TextView tvforTitle, tvForCon, tvfordec;
     ImageView ivforpic;
-    Button sharenot;
-    String deeplink, pt = "t", pc = "c", pd = "d", pi = "url";
+    FloatingActionButton sharenot;
+    String deeplink, pt = "title", pc = "content", pd = "description", pi = "url";
+
+    DatabaseReference db;
+    private static final String DB_URL = "https://intellectualcloud-5fe7b.firebaseio.com/Dlinks";
+    String fbkey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,19 +61,21 @@ public class ReceiveLink extends AppCompatActivity {
                         Uri deepLink = null;
                         if (pendingDynamicLinkData != null) {
                             deepLink = pendingDynamicLinkData.getLink();
-                            //sample format: https://github.com/st="title"/sd="desc"/
-
 
                         }
 
+
                         deeplink = deepLink.toString();
+                        Toast.makeText(ReceiveLink.this, "" + deepLink, Toast.LENGTH_SHORT).show();
 
-                        tvForCon.setText(deeplink);
-                        tvforTitle.setText(deeplink);
-                        tvfordec.setText(deeplink);
-                        PicassoClient.downloadimg(getApplicationContext(), pi, ivforpic);
-                        sharenot.setEnabled(true);
 
+                        String a[] = deeplink.split("seperator");
+                        // Toast.makeText(ReceiveLink.this, "first->"+a[1], Toast.LENGTH_SHORT).show();
+
+                        // Toast.makeText(ReceiveLink.this, "1->" + a[1], Toast.LENGTH_SHORT).show();
+                        fbkey = a[1];
+
+                        getcontentfromdb(fbkey);
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
@@ -86,6 +95,43 @@ public class ReceiveLink extends AppCompatActivity {
 
     }
 
+    private void getcontentfromdb(final String key) {
+        db = FirebaseDatabase.getInstance().getReferenceFromUrl(DB_URL);
+
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                post d = dataSnapshot.child(key).getValue(post.class);
+
+                fun(d);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    void fun(post d) {
+
+
+        pd = d.getPost_description();
+        pt = d.getPost_title();
+        pc = d.getPost_content();
+        pi = d.getImg_path();
+        tvForCon.setText(pc);
+        tvforTitle.setText(pt);
+        tvfordec.setText(pd);
+
+
+        if (pi != null)
+            PicassoClient.downloadimg(getApplicationContext(), pi, ivforpic);
+        sharenot.setEnabled(true);
+
+    }
 
     private void gcreatedynamiclink() {
 

@@ -77,7 +77,7 @@ public class Home extends AppCompatActivity {
 
             }
         });
-        firebaseClient = new FirebaseClient(this, DB_URL, listViewfeed);
+        firebaseClient = new FirebaseClient(this, DB_URL, listViewfeed, "reverse");
         firebaseClient.refreshdata();
         //    progressBar.setVisibility(View.GONE);
 
@@ -101,10 +101,7 @@ public class Home extends AppCompatActivity {
         checkwebsite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "http://www.myintellecutalcloud.com";
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
+                visitwebsite();
             }
         });
         new Handler().postDelayed(new Runnable() {
@@ -117,13 +114,21 @@ public class Home extends AppCompatActivity {
 
     }
 
+    private void visitwebsite() {
+        String url = "http://www.myintellecutalcloud.com";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+
+    }
+
     private void checkfornotification() {
         if (getIntent().getExtras() != null) {
             Intent intent = new Intent(this, ShowNotification.class);
 
             for (String key : getIntent().getExtras().keySet()) {
                 String value = getIntent().getExtras().getString(key);
-                Toast.makeText(this, key + value, Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(this, key + value, Toast.LENGTH_SHORT).show();
 
                 if (key.equals("picture_url"))
                     intent.putExtra("picture_url", value);

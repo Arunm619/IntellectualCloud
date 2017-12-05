@@ -3,10 +3,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/aboutrl"
+    android:id="@+id/aboutrl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.intellectualcloud.intellectualcloud.About">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/contacusfab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="160dp"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:src="@drawable/mail"
+        android:visibility="invisible"
+
+        app:backgroundTint="@color/colorAccent"
+        app:elevation="6dp"
+
+        app:pressedTranslationZ="12dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/teamfab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="90dp"
+
+        android:layout_marginRight="@dimen/fab_margin"
+        android:src="@drawable/group"
+
+        android:visibility="invisible"
+
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+
+        android:src="@drawable/settings"
+        app:backgroundTint="@color/colorAccent"
+
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp" />
 
 
     <ScrollView
@@ -21,72 +72,100 @@ android:id="@+id/aboutrl"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!-- Cloud Intellect -->
-            <android.support.v7.widget.CardView
+            <!-- Cloud Intellect Intro -->
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="08dp"
-                card_view:cardCornerRadius="2dp"
-                card_view:contentPadding="10dp">
+                card_view:cardCornerRadius="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:padding="5dp"
-                        android:text="Intellectual Cloud"
-                        android:textAppearance="?android:textAppearanceMedium"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textStyle="bold" />
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:weightSum="5">
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/teampic"
-                            android:layout_width="150dp"
-                            android:layout_height="100dp"
-                            android:layout_weight="2" />
+                            android:layout_width="match_parent"
+                            android:layout_height="240dp"
+                            android:layout_alignParentTop="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/placeholder" />
 
+                        <TextView
+                            android:id="@+id/titile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/teampic"
+                            android:maxLines="3"
+                            android:padding="8dp"
+                            android:text="@string/app_name"
+                            android:textColor="#222"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/teamdesc"
                             android:layout_width="wrap_content"
-
                             android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            android:lineSpacingMultiplier="1.2"
-                            android:padding="10dp"
-                            android:text="@string/sample"
-                            android:textSize="15sp" />
+                            android:layout_below="@id/titile"
+                            android:maxLines="3"
+                            android:padding="8dp"
+                            android:text="@string/description"
+                            android:textColor="#666"
+                            android:textSize="14sp" />
 
-                    </LinearLayout>
+                        <TextView
+                            android:id="@+id/teamcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/teamdesc"
+                            android:maxLines="3"
+                            android:padding="8dp"
+                            android:text="@string/content"
+                            android:textColor="#666"
+                            android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/teamcon"
+                        <View
+                            android:id="@+id/line"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_below="@id/teamcon"
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:lineSpacingMultiplier="1.2"
-                        android:padding="10dp"
-                        android:text="@string/sample1"
-                        android:textSize="16sp" />
+                            />
 
+                        <Button
+                            android:id="@+id/Shareapp"
+                            style="@style/Base.Widget.AppCompat.Button.Borderless"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_below="@id/line"
+                            android:text="Share" />
+
+
+                        <Button
+                            android:id="@+id/Moreinfo"
+                            style="@style/Base.Widget.AppCompat.Button.Borderless"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@id/line"
+                            android:text="More Info" />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
-            </android.support.v7.widget.CardView>
 
+            </android.support.v7.widget.CardView>
 
             <!-- Cloud Intellect Primary Features -->
             <LinearLayout
@@ -100,9 +179,10 @@ android:id="@+id/aboutrl"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
 
+                    android:gravity="center"
                     android:padding="10dp"
                     android:text="Features"
-                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textAppearance="?android:textAppearanceLarge"
                     android:textColor="@color/colorPrimaryDark"
                     android:textStyle="bold" />
 
@@ -118,89 +198,9 @@ android:id="@+id/aboutrl"
                     />
             </LinearLayout>
 
-            <!-- Cloud Intellect Team workers -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-
-                    android:padding="10dp"
-                    android:text="The Team"
-                    android:textAppearance="?android:textAppearanceMedium"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
-
-
-                <ListView
-                    android:id="@+id/lv_forworkers"
-                    android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    android:layout_centerHorizontal="true"
-                    android:descendantFocusability="blocksDescendants"
-                    android:scrollbarSize="3.5dip"
-
-                    />
-            </LinearLayout>
-
-            <!-- Cloud Intellect  ANy helu\p contact us-->
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="08dp"
-                card_view:cardCornerRadius="2dp"
-                card_view:contentPadding="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:padding="5dp"
-                        android:text="Contact Us"
-                        android:textAppearance="?android:textAppearanceMedium"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textStyle="bold" />
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <Button
-                            android:id="@+id/btn_contactus"
-                            style="@style/Base.Widget.AppCompat.Button.Colored"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Email" />
-
-
-                        <Button
-                            android:id="@+id/btn_number"
-                            style="@style/Base.Widget.AppCompat.Button.Colored"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Phone" />
-
-                    </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="80dp" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

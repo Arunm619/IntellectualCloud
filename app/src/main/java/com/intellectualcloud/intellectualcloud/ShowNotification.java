@@ -1,6 +1,7 @@
 package com.intellectualcloud.intellectualcloud;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +14,7 @@ public class ShowNotification extends AppCompatActivity {
 
     TextView tvforTitle, tvForCon;
     ImageView ivforpic;
-    Button sharenot;
+    FloatingActionButton sharenot;
 
 
     @Override

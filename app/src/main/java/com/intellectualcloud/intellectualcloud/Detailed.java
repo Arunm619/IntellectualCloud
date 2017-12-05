@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
@@ -28,6 +30,10 @@ public class Detailed extends AppCompatActivity {
     ImageView iv;
     FloatingActionButton btn_share;
     String pt, pc, pd, pi;
+    post pfb;
+    DatabaseReference db;
+    private static final String DB_URL = "https://intellectualcloud-5fe7b.firebaseio.com/Dlinks";
+
 
     /* pt -post title,pd - post desc, pc - post content,pi - post img */
     @Override
@@ -36,9 +42,11 @@ public class Detailed extends AppCompatActivity {
         setContentView(R.layout.activity_detailed);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        db = FirebaseDatabase.getInstance().getReferenceFromUrl(DB_URL);
+
         Gson gson = new Gson();
         String data = getIntent().getExtras().getString("obj", "fool");
-        post post = new post();
+        post post;
         tvmcon = findViewById(R.id.mcon);
         tvmdesc = findViewById(R.id.mdesc);
         tvmtitle = findViewById(R.id.mtitle);
@@ -47,6 +55,8 @@ public class Detailed extends AppCompatActivity {
 
         if (!data.equals("fool")) {
             post = gson.fromJson(data, post.class);
+
+            pfb = post;
 
             pt = post.getPost_title();
             tvmtitle.setText(pt);
@@ -71,15 +81,22 @@ public class Detailed extends AppCompatActivity {
     private void sharelink() {
 
 
-        gcreatedynamiclink();
+        gcreatedynamiclink(getid());
 
     }
 
+    private String getid() {
+        String id = db.push().getKey();
+        db.child(id).setValue(pfb);
+        return id;
+    }
 
-    private void gcreatedynamiclink() {
+
+    private void gcreatedynamiclink(String id) {
+
 
         Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse("https://github.com/ " + "<pt>" + pt + "</pt>" + "<pd>" + pd + "</pd>" + "<pc>" + pc + "</pc>" + "<pi> " + pi + "</pi>"))
+                .setLink(Uri.parse("https://github.com/" +getString(R.string.seperator) +id))
                 .setDynamicLinkDomain("xb6hq.app.goo.gl")
                 .setAndroidParameters(
                         new DynamicLink.AndroidParameters.Builder("com.intellectualcloud.intellectualcloud")
@@ -101,6 +118,7 @@ public class Detailed extends AppCompatActivity {
                             // Short link created
                             Uri shortLink = task.getResult().getShortLink();
                             final String a = shortLink.toString();
+
                             View parentLayout = findViewById(R.id.detailed);
                             Snackbar.make(parentLayout, "Share...", Snackbar.LENGTH_LONG)
                                     .setAction("Select", new View.OnClickListener() {

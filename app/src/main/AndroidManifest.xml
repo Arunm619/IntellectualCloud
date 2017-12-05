@@ -41,16 +41,22 @@
         <activity android:name=".addnewemp" />
         <activity android:name=".addnewf" />
         <activity android:name=".ShowNotification" />
-
         <activity android:name=".ReceiveLink">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:host="github.com" android:scheme="http"/>
-                <data android:host="github.com" android:scheme="https"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="github.com"
+                    android:scheme="http" />
+                <data
+                    android:host="github.com"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
+        <activity android:name=".Employees"></activity>
     </application>
 
 </manifest>
